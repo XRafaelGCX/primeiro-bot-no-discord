@@ -1,4 +1,6 @@
 import discord
+import random
+import os
 from config import TOKEN
 from bot_logic import gen_pass
 from discord.ext import commands
@@ -32,5 +34,11 @@ async def aura(ctx, size = 10):
 async def senha(ctx, size = 10):
     await ctx.send(gen_pass(size))
 
+@bot.command()
+async def meme(ctx):
+    chosed = random.choice(os.listdir('memes'))
+    with open(f'memes/{chosed}', 'rb') as f:
+        image = discord.File(f)
+    await ctx.send(file=image)
 
 bot.run(TOKEN)
